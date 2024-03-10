@@ -1,0 +1,227 @@
+Arrays
+Write a program to read an integer 1D array containing 8 bits (0s, 1s) of an unsigned binary integer.
+The program should print the decimal value for the integer.
+Algorithm
+1. Start
+2. Input the binary number.
+3. Multiply each digit of the binary number with the power of 2 and add each multiplication
+result. The power starts from 0 to n-1 where n is the total number of digits in the binary
+number.
+4. End
+
+#include <iostream>
+#include <cmath>
+int main() {
+const int arraySize = 8;
+int binaryArray[arraySize];
+// Input binary digits
+std::cout << "Enter an 8-bit binary integer (0s and 1s): ";
+for (int i = 0; i < arraySize; ++i) {
+std::cin >> binaryArray[i];
+// Validate input (should be 0 or 1)
+if (binaryArray[i] != 0 && binaryArray[i] != 1) {
+std::cerr << "Invalid input. Please enter only 0s and 1s." <<
+std::endl;
+return 1; // Exit with error code
+}
+}
+// Convert binary to decimal
+int decimalValue = 0;
+for (int i = arraySize - 1; i >= 0; --i) {
+decimalValue += binaryArray[i] * pow(2, arraySize - 1 - i);
+}
+// Print the decimal value
+std::cout << "Decimal value: " << decimalValue << std::endl;
+return 0; // Exit successfully
+}
+
+Currency notes are available in the following seven denominations: Rs. 1, Rs. 2, Rs. 5, Rs. 10, Rs. 20,
+Rs. 50, and Rs. 100.
+You will first read an integer array (named purse [7]) of seven elements, where the array elements
+represents the number of notes of each denomination (in increasing order of denomination) available
+
+with you. You are also given an amount of money to be paid using these notes. The amount will be less
+than Rs. 1000. You have to pay the amount using minimum number of notes.
+Print the number of notes of each denomination which you will use to pay the amount.
+If the amount cannot be paid using the available notes, print “Failed to Pay”.
+Algorithm
+1. Start
+2. Sort the array of coins in decreasing order.
+3. Initialize ans vector as empty.
+4. Find the largest denomination that is smaller than remaining amount and while it is smaller
+than the remaining amount:
+5. Add found denomination to ans. Subtract value of found denomination from amount.
+6. If amount becomes 0, then print ans.
+7. End
+// C++ program to find minimum
+#include <iostream>
+const int COINS = 7;
+const int MAX = 20;
+int coins[COINS] = { 1, 2, 5, 10, 20, 50, 100 };
+void findMin(int cost, int purse[COINS])
+{
+int coinList[MAX] = { 0 };
+int i, k = 0;
+for (i = COINS - 1; i >= 0; i--) {
+while (cost >= coins[i] && purse[i] > 0) {
+cost -= coins[i];
+purse[i]--;
+coinList[k++] = coins[i];
+}
+}
+if (cost == 0) {
+std::cout << "Number of notes to pay Rs. " << cost << ":" << std::endl;
+for (i = 0; i < k; i++) {
+std::cout << "Rs. " << coinList[i] << ": 1 note" << std::endl;
+}
+std::cout << "Payment Successful!" << std::endl;
+} else {
+std::cout << "Failed to Pay. Insufficient notes to cover the amount." <<
+std::endl;
+}
+return;
+}
+int main()
+{
+int purse[COINS];
+
+std::cout << "Enter the number of notes for each denomination (Rs. 1 to Rs.
+100):" << std::endl;
+for (int i = 0; i < COINS; ++i) {
+std::cout << "Enter the number of Rs. " << coins[i] << " notes: ";
+std::cin >> purse[i];
+}
+int amount;
+std::cout << "Enter the amount to be paid (less than Rs. 1000): ";
+std::cin >> amount;
+std::cout << "Following is minimal number of change for Rs. " << amount << ":
+";
+findMin(amount, purse);
+return 0;
+}
+Write C functions to perform the following operations with two-dimensional arrays.
+i) Reading any two dimensional array elements.
+ii) Finding maximum and standard deviation of array elements.
+iii) Printing the transpose of a matrix
+Algorithm
+Reading Array
+1. Start
+2. Declare a two-dimensional array arr[MAX_ROWS][MAX_COLS]
+3. Input the number of rows (rows) and columns (cols)
+4. Check if (rows <= MAX_ROWS) and (cols <= MAX_COLS), else return an error
+5. Initialize a loop for i from 0 to rows-1
+6. Initialize a nested loop for j from 0 to cols-1
+7. Input arr[i][j]
+8. End nested loop
+9. End loop
+10. End
+Max Value Standard deviation
+1. Start
+2. Declare a two-dimensional array arr[MAX_ROWS][MAX_COLS]
+3. Declare variables maxElement, sum, mean, and stddev
+4. Input the number of rows (rows) and columns (cols)
+5. Check if (rows <= MAX_ROWS) and (cols <= MAX_COLS), else return an error
+6. Initialize maxElement to arr[0][0]
+7. Initialize sum to 0.0
+8. Initialize a loop for i from 0 to rows-1
+9. Initialize a nested loop for j from 0 to cols-1
+10. If arr[i][j] > maxElement, update maxElement to arr[i][j]
+11. Add arr[i][j] to sum
+12. End nested loop
+13. End loop
+14. Calculate mean as sum / (rows * cols)
+15. Initialize stddev to 0.0
+
+16. Initialize a loop for i from 0 to rows-1
+17. Initialize a nested loop for j from 0 to cols-1
+18. Add pow(arr[i][j] - mean, 2) to stddev
+19. End nested loop
+20. End loop
+21. Calculate stddev as sqrt(stddev / (rows * cols))
+22. Output maxElement and stddev
+23. End
+Transpose
+1. Start
+2. Declare a two-dimensional array arr[MAX_ROWS][MAX_COLS]
+3. Input the number of rows (rows) and columns (cols)
+4. Check if (rows <= MAX_ROWS) and (cols <= MAX_COLS), else return an error
+5. Initialize a loop for i from 0 to rows-1
+6. Initialize a nested loop for j from 0 to cols-1
+7. Input arr[i][j]
+8. End nested loop
+9. End loop
+10. Output "Transpose of the matrix:"
+11. Initialize a loop for j from 0 to cols-1
+12. Initialize a nested loop for i from 0 to rows-1
+13. Output arr[i][j] followed by a space
+14. End nested loop
+15. Output a newline
+16. End loop
+17. End
+#include <iostream>
+#include <cmath>
+using namespace std;
+const int MAX_ROWS = 100;
+const int MAX_COLS = 100;
+// Function to read elements of a two-dimensional array
+void readArray(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+std::cout << "Enter elements of the array:" << std::endl;
+for (int i = 0; i < rows; ++i) {
+for (int j = 0; j < cols; ++j) {
+std::cout << "Enter element at position (" << i << ", " << j << "): ";
+std::cin >> arr[i][j];
+}
+}
+}
+// Function to find the maximum element and standard deviation of elements in the
+array
+void findMaxAndStdDev(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+int maxElement = arr[0][0];
+double sum = 0.0;
+// Find maximum element and calculate sum for standard deviation
+for (int i = 0; i < rows; ++i) {
+for (int j = 0; j < cols; ++j) {
+if (arr[i][j] > maxElement) {
+maxElement = arr[i][j];
+}
+
+sum += arr[i][j];
+}
+}
+// Calculate mean for standard deviation
+double mean = sum / (rows * cols);
+// Calculate standard deviation
+double stddev = 0.0;
+for (int i = 0; i < rows; ++i) {
+for (int j = 0; j < cols; ++j) {
+stddev += pow(arr[i][j] - mean, 2);
+}
+}
+stddev = sqrt(stddev / (rows * cols));
+std::cout << "Maximum element: " << maxElement << std::endl;
+std::cout << "Standard Deviation: " << stddev << std::endl;
+}
+// Function to print the transpose of a matrix
+void printTranspose(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
+std::cout << "Transpose of the matrix:" << std::endl;
+for (int j = 0; j < cols; ++j) {
+for (int i = 0; i < rows; ++i) {
+std::cout << arr[i][j] << " ";
+}
+std::cout << std::endl;
+}
+}
+int main() {
+int rows, cols;
+std::cout << "Enter the number of rows and columns for the array: ";
+std::cin >> rows >> cols;
+if (rows > MAX_ROWS || cols > MAX_COLS) {
+std::cout << "Error: Exceeded maximum array size." << std::endl;
+return 1;
+}
+int array[MAX_ROWS][MAX_COLS];
+readArray(array, rows, cols);
+findMaxAndStdDev(array, rows, cols);
+printTranspose(array, rows, cols);
+return 0;
+}
